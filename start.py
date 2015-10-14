@@ -49,7 +49,7 @@ def kill(p):
     x = p[0] + 16
     y = p[1] + 59
     m.click(x,y)
-    time.sleep(3)
+    time.sleep(2)
     #global sleeptime_count
     #sleeptime_count += 3
     #print sleeptime_count
