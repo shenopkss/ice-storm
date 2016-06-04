@@ -15,7 +15,7 @@ sleeptime_count = 0
 def find_monsters():
     img = ImageGrab.grab((0, 0, 800, 622))
     size = img.size
-    
+
     points = []
     monsters = []
     for j in range(size[1]):
@@ -36,7 +36,7 @@ def find_monsters():
                         points.append([i,j])
                 else:
                     points = []
-            
+
             if len(points) > 3:
                 print "monster:",points
                 monsters.append(points[0])
@@ -58,11 +58,11 @@ def kill(p):
     #         m.move(400,205)
     #         time.sleep(0.4)
     #         win32api.keybd_event(112 ,0,0,0)     #f1
-            
+
     # if sleeptime_count % 9 == 0:
     #          win32api.keybd_event(117 ,0,0,0)    #f6
 
-    
+
 def run():
     last_monster = []
     no_fond_times = 0
@@ -71,13 +71,13 @@ def run():
     while True:
         print "[" + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()) + "]"
         monsters =  find_monsters()
-        
-        if len(monsters) > 0:      
+
+        if len(monsters) > 0:
             no_fond_times = 0
             target = []
             i = 0
             l = len(monsters)
-            
+
             for monster in monsters:
                     if abs(338 - monster[0]) < 5 and monster[1] >= 125 - 5 and monster[1] <= 189 + 5:
                         target = monster
@@ -89,7 +89,7 @@ def run():
                         target = monster
                         break
                     i += 1
-            
+
             if target == []:
                 i = l / 2
                 if i > 2:
@@ -109,19 +109,19 @@ def run():
                 m.click(x, y, 2)
                 print "monster repear, move point : ",x,y
 
-                
+
                 i = random.randint(0, l - 1)
                 target = monsters[i]
-                
+
             if repeat_count > 5:
                 m.click(305, 446, 1)        #random stone
                 continue
-                            
+
             print "monster count:",l,", current monster index:",i
 
-            last_monster = target    
+            last_monster = target
             kill(target)
-            
+
             monsters = find_monsters()
             for monster in monsters:
                 if target == monster:    # target is exist
