@@ -9,11 +9,40 @@ import math
 import random
 import win32api
 import win32con
-
+import split
+import imghash
 m = PyMouse()
 sleeptime_count = 0
 img = None
-
+def find_question():
+    red_img = ImageGrab.grab((22, 43, 37, 56))
+    red_img.save("red_img.gif")
+    size = red_img.size
+    red_count = 0
+    for x in range(size[0]):
+        for y in range(size[1]):
+            pix = red_img.getpixel((x, y))
+            if pix[0] >= 240 and pix[1] <= 10 and pix[1] <= 10:
+                red_count += 1
+    if red_count > 40:
+    #if True:
+        im = ImageGrab.grab((57, 172, 324, 188))
+        im.save("question.gif")
+        result = split.split(im)
+        index = 0
+        length = 80
+        for item in result:
+            print index
+            im = Image.open(item)
+            im_len = im.size[0] + 25
+            length += im_len
+            if imghash.match(item, 'dic') == True:
+                length -= im_len / 2
+                break
+            index += 1
+            print "\n"
+        print "length:%d"%length
+        m.click(length, 180)
 
 def find_monsters():
     img = ImageGrab.grab((0, 0, 800, 622))
@@ -55,6 +84,7 @@ def kill(p):
     m.click(x,y)
     time.sleep(0.2)
     m.click(x,y)
+    m.move(1000, 700)
     time.sleep(1.5)
 
     #global sleeptime_count
@@ -74,6 +104,7 @@ def run():
     no_fond_times = 0
     while True:
         print "[" + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()) + "]"
+        find_question()
         monsters =  find_monsters()
         l = len(monsters)
         print "monster count:",l
